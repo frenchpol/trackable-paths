@@ -23,6 +23,37 @@ export const Map = () => {
 
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
+    // Wait for style to load before adding sources and layers
+    map.current.on('style.load', () => {
+      // Initialize the source and layer
+      map.current?.addSource('route', {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'LineString',
+            coordinates: currentPath,
+          },
+        },
+      });
+
+      map.current?.addLayer({
+        id: 'route',
+        type: 'line',
+        source: 'route',
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': '#4338ca',
+          'line-width': 4,
+          'line-opacity': 0.8,
+        },
+      });
+    });
+
     return () => {
       map.current?.remove();
     };
@@ -38,8 +69,8 @@ export const Map = () => {
       });
     }
 
+    // Update source data only if the style has finished loading
     const source = map.current.getSource('route') as mapboxgl.GeoJSONSource;
-    
     if (source) {
       source.setData({
         type: 'Feature',
@@ -47,33 +78,6 @@ export const Map = () => {
         geometry: {
           type: 'LineString',
           coordinates: currentPath,
-        },
-      });
-    } else {
-      map.current.addSource('route', {
-        type: 'geojson',
-        data: {
-          type: 'Feature',
-          properties: {},
-          geometry: {
-            type: 'LineString',
-            coordinates: currentPath,
-          },
-        },
-      });
-
-      map.current.addLayer({
-        id: 'route',
-        type: 'line',
-        source: 'route',
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round',
-        },
-        paint: {
-          'line-color': '#4338ca',
-          'line-width': 4,
-          'line-opacity': 0.8,
         },
       });
     }
