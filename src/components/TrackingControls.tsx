@@ -3,9 +3,19 @@ import { Button } from '@/components/ui/button';
 import { useLocation } from '@/context/LocationContext';
 import { Play, Square } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { downloadGPXFile } from '@/utils/gpx';
+import { toast } from 'sonner';
 
 export const TrackingControls = () => {
-  const { isTracking, startTracking, stopTracking } = useLocation();
+  const { isTracking, startTracking, stopTracking, currentPath } = useLocation();
+
+  const handleStopTracking = () => {
+    stopTracking();
+    if (currentPath.length > 0) {
+      downloadGPXFile(currentPath);
+      toast.success('Track saved as GPX file');
+    }
+  };
 
   return (
     <motion.div
@@ -23,7 +33,7 @@ export const TrackingControls = () => {
         </Button>
       ) : (
         <Button
-          onClick={stopTracking}
+          onClick={handleStopTracking}
           variant="destructive"
           className="rounded-full w-12 h-12 flex items-center justify-center transition-all duration-300"
         >
