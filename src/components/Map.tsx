@@ -6,7 +6,7 @@ import { useLocation } from '@/context/LocationContext';
 
 // Set free tile server for OpenStreetMap
 const OPEN_STREET_MAP_STYLE = {
-  "version": 8,
+  "version": 8 as 8,  // Explicitly type version as 8
   "sources": {
     "osm": {
       "type": "raster",
