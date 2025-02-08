@@ -5,23 +5,23 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { useLocation } from '@/context/LocationContext';
 
 // Set free tile server for OpenStreetMap
-const OPEN_STREET_MAP_STYLE = {
-  "version": 8 as 8,  // Explicitly type version as 8
-  "sources": {
-    "osm": {
-      "type": "raster",
-      "tiles": ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-      "tileSize": 256,
-      "attribution": '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+const OPEN_STREET_MAP_STYLE: mapboxgl.Style = {
+  version: 8,
+  sources: {
+    osm: {
+      type: "raster" as const,
+      tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+      tileSize: 256,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }
   },
-  "layers": [
+  layers: [
     {
-      "id": "osm",
-      "type": "raster",
-      "source": "osm",
-      "minzoom": 0,
-      "maxzoom": 19
+      id: "osm",
+      type: "raster" as const,
+      source: "osm",
+      minzoom: 0,
+      maxzoom: 19
     }
   ]
 };
