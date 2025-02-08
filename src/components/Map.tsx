@@ -29,6 +29,7 @@ const OPEN_STREET_MAP_STYLE: mapboxgl.Style = {
 export const Map = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
+  const markerRef = useRef<mapboxgl.Marker | null>(null);
   const { currentLocation, currentPath, isTracking } = useLocation();
   const [isMapInitialized, setIsMapInitialized] = useState(false);
 
@@ -47,6 +48,13 @@ export const Map = () => {
       });
 
       map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+      // Create marker for current position
+      if (currentLocation) {
+        markerRef.current = new mapboxgl.Marker({ color: '#4338ca' })
+          .setLngLat(currentLocation)
+          .addTo(map.current);
+      }
 
       // Wait for style to load before adding sources and layers
       map.current.on('style.load', () => {
@@ -91,6 +99,15 @@ export const Map = () => {
 
   useEffect(() => {
     if (!map.current || !currentLocation || !isMapInitialized) return;
+
+    // Update marker position
+    if (markerRef.current) {
+      markerRef.current.setLngLat(currentLocation);
+    } else {
+      markerRef.current = new mapboxgl.Marker({ color: '#4338ca' })
+        .setLngLat(currentLocation)
+        .addTo(map.current);
+    }
 
     if (isTracking) {
       map.current.easeTo({
