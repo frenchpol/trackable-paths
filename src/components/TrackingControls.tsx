@@ -16,7 +16,9 @@ export const TrackingControls = () => {
     stopTracking();
     if (currentPath.length > 0) {
       downloadGPXFile(currentPath, trackName);
-      toast.success('Track saved as GPX file');
+      toast.success('Track saved as GPX file', {
+        className: 'bg-background/95 border-border/50 text-foreground',
+      });
     }
   };
 
@@ -26,12 +28,12 @@ export const TrackingControls = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 flex gap-4 z-50"
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 flex gap-6 z-50"
       >
         {!isTracking ? (
           <Button
             onClick={() => startTracking(trackName)}
-            className="w-20 h-20 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/30 transition-all duration-300"
+            className="w-16 h-16 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground button-control button-primary"
           >
             <Play className="h-6 w-6" />
           </Button>
@@ -39,13 +41,13 @@ export const TrackingControls = () => {
           <>
             <Button
               onClick={handleStopTracking}
-              className="w-20 h-20 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/30 transition-all duration-300"
+              className="w-16 h-16 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground button-control button-primary"
             >
               <Square className="h-6 w-6" />
             </Button>
             <Button
               onClick={() => setIsPOIDialogOpen(true)}
-              className="w-20 h-20 rounded-full bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg shadow-secondary/30 transition-all duration-300"
+              className="w-16 h-16 rounded-full bg-secondary hover:bg-secondary/90 text-secondary-foreground button-control button-primary"
             >
               <MapPin className="h-6 w-6" />
             </Button>

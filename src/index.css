@@ -7,33 +7,24 @@
   :root {
     --background: 167 49% 7%;
     --foreground: 152 47% 91%;
-
     --card: 167 49% 7%;
     --card-foreground: 152 47% 91%;
-
     --popover: 167 41% 12%;
     --popover-foreground: 152 47% 91%;
-
     --primary: 97 100% 73%;
     --primary-foreground: 167 49% 7%;
-
     --secondary: 220 100% 73%;
     --secondary-foreground: 0 0% 100%;
-
     --muted: 167 37% 16%;
     --muted-foreground: 152 47% 91%;
-
     --accent: 167 37% 16%;
     --accent-foreground: 152 47% 91%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: rgb(168 255 120 / 0.2);
     --input: 167 37% 16%;
     --ring: 97 100% 73%;
-
-    --radius: 0.5rem;
+    --radius: 1rem;
   }
 }
 
@@ -43,10 +34,27 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
 }
 
 #map {
   @apply brightness-90 contrast-120 grayscale;
 }
+
+.dialog-content {
+  @apply overflow-hidden border-none shadow-2xl;
+}
+
+.dialog-header {
+  @apply text-center space-y-2 mb-4;
+}
+
+.button-primary {
+  @apply hover:scale-105 transition-transform duration-200 active:scale-95;
+}
+
+.button-control {
+  @apply shadow-lg backdrop-blur-sm bg-opacity-90 hover:bg-opacity-100 transition-all duration-300;
+}
+

@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useLocation } from '@/context/LocationContext';
+import { motion } from 'framer-motion';
 
 interface POIDialogProps {
   isOpen: boolean;
@@ -27,36 +28,42 @@ export const POIDialog = ({ isOpen, onClose }: POIDialogProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-popover border-border shadow-lg shadow-primary/10">
+      <DialogContent className="dialog-content bg-background/95 backdrop-blur-lg border-border/50">
         <DialogHeader>
-          <DialogTitle className="text-primary text-xl">Add Point of Interest</DialogTitle>
+          <DialogTitle className="text-primary text-2xl font-bold tracking-tight">
+            Add Point of Interest
+          </DialogTitle>
         </DialogHeader>
-        <div className="space-y-4 py-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-6 py-4"
+        >
           <div className="space-y-2">
             <Textarea
-              placeholder="Enter POI description"
+              placeholder="Describe this location..."
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              className="bg-muted border-border text-foreground resize-none h-[100px]"
+              className="bg-muted/50 border-border/50 text-foreground resize-none h-32 text-lg placeholder:text-foreground/50"
             />
           </div>
-          <div className="flex justify-center space-x-2">
+          <div className="flex justify-end space-x-3">
             <Button
               variant="outline"
               onClick={onClose}
-              className="border-border bg-muted text-foreground hover:bg-accent"
+              className="border-border/50 bg-background/50 text-foreground hover:bg-accent/50 h-12 px-6"
             >
               Cancel
             </Button>
             <Button
               onClick={handleAddPOI}
               disabled={!comment.trim()}
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 button-primary"
             >
-              OK
+              Add Point
             </Button>
           </div>
-        </div>
+        </motion.div>
       </DialogContent>
     </Dialog>
   );

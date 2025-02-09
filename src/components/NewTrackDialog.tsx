@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useLocation } from '@/context/LocationContext';
+import { motion } from 'framer-motion';
 
 export const NewTrackDialog = () => {
   const [trackName, setTrackName] = useState('');
@@ -19,36 +20,42 @@ export const NewTrackDialog = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="bg-popover border-border shadow-lg shadow-primary/10">
+      <DialogContent className="dialog-content bg-background/95 backdrop-blur-lg border-border/50">
         <DialogHeader>
-          <DialogTitle className="text-primary text-xl">Record a New Track</DialogTitle>
+          <DialogTitle className="text-primary text-2xl font-bold tracking-tight">
+            New Activity
+          </DialogTitle>
         </DialogHeader>
-        <div className="space-y-4 py-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-6 py-4"
+        >
           <div className="space-y-2">
             <Input
-              placeholder="Enter track name"
+              placeholder="Activity name"
               value={trackName}
               onChange={(e) => setTrackName(e.target.value)}
-              className="bg-muted border-border text-foreground"
+              className="bg-muted/50 border-border/50 text-foreground h-12 text-lg placeholder:text-foreground/50"
             />
           </div>
-          <div className="flex justify-center space-x-2">
+          <div className="flex justify-end space-x-3">
             <Button
               variant="outline"
               onClick={() => setIsOpen(false)}
-              className="border-border bg-muted text-foreground hover:bg-accent"
+              className="border-border/50 bg-background/50 text-foreground hover:bg-accent/50 h-12 px-6"
             >
               Cancel
             </Button>
             <Button
               onClick={handleStart}
               disabled={!trackName.trim()}
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 button-primary"
             >
-              Start
+              Start Activity
             </Button>
           </div>
-        </div>
+        </motion.div>
       </DialogContent>
     </Dialog>
   );
