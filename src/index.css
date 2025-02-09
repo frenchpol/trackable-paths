@@ -39,7 +39,7 @@
 }
 
 #map {
-  @apply brightness-90 contrast-120 grayscale;
+  @apply brightness-90 contrast-125 grayscale;
 }
 
 .dialog-content {
@@ -56,5 +56,10 @@
 
 .button-control {
   @apply shadow-lg backdrop-blur-sm bg-opacity-90 hover:bg-opacity-100 transition-all duration-300;
+}
+
+/* Modern input styles */
+input, textarea {
+  @apply border-0 bg-muted/50 focus:ring-1 focus:ring-primary/50 focus:outline-none transition-all duration-200;
 }
 

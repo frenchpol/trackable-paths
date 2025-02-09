@@ -28,7 +28,7 @@ export const POIDialog = ({ isOpen, onClose }: POIDialogProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="dialog-content bg-background/95 backdrop-blur-lg border-border/50">
+      <DialogContent className="dialog-content bg-background/95 backdrop-blur-lg">
         <DialogHeader>
           <DialogTitle className="text-primary text-2xl font-bold tracking-tight">
             Add Point of Interest
@@ -44,14 +44,14 @@ export const POIDialog = ({ isOpen, onClose }: POIDialogProps) => {
               placeholder="Describe this location..."
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              className="bg-muted/50 border-border/50 text-foreground resize-none h-32 text-lg placeholder:text-foreground/50"
+              className="resize-none h-32 text-lg placeholder:text-foreground/50"
             />
           </div>
           <div className="flex justify-end space-x-3">
             <Button
               variant="outline"
               onClick={onClose}
-              className="border-border/50 bg-background/50 text-foreground hover:bg-accent/50 h-12 px-6"
+              className="bg-background/50 text-foreground hover:bg-accent/50 h-12 px-6"
             >
               Cancel
             </Button>
