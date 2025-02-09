@@ -30,7 +30,7 @@ export const TrackingControls = () => {
       >
         {!isTracking ? (
           <Button
-            onClick={() => startTracking()}
+            onClick={() => startTracking(trackName)}
             className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full w-12 h-12 flex items-center justify-center transition-all duration-300"
           >
             <Play className="h-5 w-5" />
