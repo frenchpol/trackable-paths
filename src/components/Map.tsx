@@ -4,22 +4,22 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useLocation } from '@/context/LocationContext';
 
-// Set free tile server for OpenStreetMap
-const OPEN_STREET_MAP_STYLE: mapboxgl.Style = {
+// Set MapTiler Terrain style
+const MAPTILER_STYLE: mapboxgl.Style = {
   version: 8,
   sources: {
-    osm: {
-      type: "raster" as const,
-      tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+    terrain: {
+      type: 'raster' as const,
+      tiles: ['https://d.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'],
       tileSize: 256,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      attribution: '&copy; <a href="https://www.maptiler.com">MapTiler</a>, <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }
   },
   layers: [
     {
-      id: "osm",
-      type: "raster" as const,
-      source: "osm",
+      id: 'terrain',
+      type: 'raster' as const,
+      source: 'terrain',
       minzoom: 0,
       maxzoom: 19
     }
@@ -36,13 +36,13 @@ export const Map = () => {
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    // Initialize map with OpenStreetMap style
-    mapboxgl.accessToken = 'not-needed-for-osm';
+    // Initialize map with MapTiler style
+    mapboxgl.accessToken = 'not-needed-for-maptiler';
     
     try {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
-        style: OPEN_STREET_MAP_STYLE,
+        style: MAPTILER_STYLE,
         center: currentLocation || [-74.5, 40],
         zoom: 15,
       });
