@@ -26,30 +26,28 @@ export const TrackingControls = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-4 p-4 bg-white/80 backdrop-blur-lg rounded-full shadow-lg"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 flex gap-4 z-50"
       >
         {!isTracking ? (
           <Button
             onClick={() => startTracking(trackName)}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full w-12 h-12 flex items-center justify-center transition-all duration-300"
+            className="w-20 h-20 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/30 transition-all duration-300"
           >
-            <Play className="h-5 w-5" />
+            <Play className="h-6 w-6" />
           </Button>
         ) : (
           <>
             <Button
               onClick={handleStopTracking}
-              variant="destructive"
-              className="rounded-full w-12 h-12 flex items-center justify-center transition-all duration-300"
+              className="w-20 h-20 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/30 transition-all duration-300"
             >
-              <Square className="h-5 w-5" />
+              <Square className="h-6 w-6" />
             </Button>
             <Button
               onClick={() => setIsPOIDialogOpen(true)}
-              variant="outline"
-              className="rounded-full w-12 h-12 flex items-center justify-center transition-all duration-300"
+              className="w-20 h-20 rounded-full bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg shadow-secondary/30 transition-all duration-300"
             >
-              <MapPin className="h-5 w-5" />
+              <MapPin className="h-6 w-6" />
             </Button>
           </>
         )}

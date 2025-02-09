@@ -27,9 +27,9 @@ export const POIDialog = ({ isOpen, onClose }: POIDialogProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="bg-popover border-border shadow-lg shadow-primary/10">
         <DialogHeader>
-          <DialogTitle>Add Point of Interest</DialogTitle>
+          <DialogTitle className="text-primary text-xl">Add Point of Interest</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="space-y-2">
@@ -37,13 +37,22 @@ export const POIDialog = ({ isOpen, onClose }: POIDialogProps) => {
               placeholder="Enter POI description"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
+              className="bg-muted border-border text-foreground resize-none h-[100px]"
             />
           </div>
-          <div className="flex justify-end space-x-2">
-            <Button variant="outline" onClick={onClose}>
+          <div className="flex justify-center space-x-2">
+            <Button
+              variant="outline"
+              onClick={onClose}
+              className="border-border bg-muted text-foreground hover:bg-accent"
+            >
               Cancel
             </Button>
-            <Button onClick={handleAddPOI} disabled={!comment.trim()}>
+            <Button
+              onClick={handleAddPOI}
+              disabled={!comment.trim()}
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+            >
               OK
             </Button>
           </div>

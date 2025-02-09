@@ -150,9 +150,9 @@ export const Map = () => {
   }, [currentLocation, currentPath, isTracking, isMapInitialized]);
 
   return (
-    <div className="absolute inset-0 bg-gray-100">
-      <div ref={mapContainer} className="h-full w-full" />
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-white/10 to-transparent" />
+    <div className="absolute inset-0 bg-background">
+      <div ref={mapContainer} className="h-full w-full brightness-90 contrast-120 grayscale" />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-background/10 to-transparent" />
     </div>
   );
 };

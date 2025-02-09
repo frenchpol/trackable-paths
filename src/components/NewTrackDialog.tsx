@@ -19,9 +19,9 @@ export const NewTrackDialog = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent>
+      <DialogContent className="bg-popover border-border shadow-lg shadow-primary/10">
         <DialogHeader>
-          <DialogTitle>Record a New Track</DialogTitle>
+          <DialogTitle className="text-primary text-xl">Record a New Track</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="space-y-2">
@@ -29,13 +29,22 @@ export const NewTrackDialog = () => {
               placeholder="Enter track name"
               value={trackName}
               onChange={(e) => setTrackName(e.target.value)}
+              className="bg-muted border-border text-foreground"
             />
           </div>
-          <div className="flex justify-end space-x-2">
-            <Button variant="outline" onClick={() => setIsOpen(false)}>
+          <div className="flex justify-center space-x-2">
+            <Button
+              variant="outline"
+              onClick={() => setIsOpen(false)}
+              className="border-border bg-muted text-foreground hover:bg-accent"
+            >
               Cancel
             </Button>
-            <Button onClick={handleStart} disabled={!trackName.trim()}>
+            <Button
+              onClick={handleStart}
+              disabled={!trackName.trim()}
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+            >
               Start
             </Button>
           </div>
