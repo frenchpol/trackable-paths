@@ -30,7 +30,8 @@ export const Map = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const markerRef = useRef<mapboxgl.Marker | null>(null);
-  const { currentLocation, currentPath, isTracking } = useLocation();
+  const poiMarkersRef = useRef<mapboxgl.Marker[]>([]);
+  const { currentLocation, currentPath, isTracking, pois } = useLocation();
   const [isMapInitialized, setIsMapInitialized] = useState(false);
 
   useEffect(() => {
@@ -80,7 +81,7 @@ export const Map = () => {
             'line-cap': 'round',
           },
           paint: {
-            'line-color': '#4338ca',
+            'line-color': '#00ff00',
             'line-width': 4,
             'line-opacity': 0.8,
           },
@@ -96,6 +97,24 @@ export const Map = () => {
       map.current?.remove();
     };
   }, []);
+
+  // Update POI markers
+  useEffect(() => {
+    if (!map.current || !isMapInitialized) return;
+
+    // Remove existing POI markers
+    poiMarkersRef.current.forEach(marker => marker.remove());
+    poiMarkersRef.current = [];
+
+    // Add new POI markers
+    pois.forEach(poi => {
+      const marker = new mapboxgl.Marker({ color: '#ff4444' })
+        .setLngLat(poi.coordinates)
+        .setPopup(new mapboxgl.Popup().setHTML(`<p>${poi.comment}</p>`))
+        .addTo(map.current!);
+      poiMarkersRef.current.push(marker);
+    });
+  }, [pois, isMapInitialized]);
 
   useEffect(() => {
     if (!map.current || !currentLocation || !isMapInitialized) return;

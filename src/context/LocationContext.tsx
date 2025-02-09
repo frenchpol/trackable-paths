@@ -3,12 +3,20 @@ import React, { createContext, useContext, useState, useCallback, useEffect } fr
 import { toast } from 'sonner';
 import * as turf from '@turf/turf';
 
+interface POI {
+  coordinates: [number, number];
+  comment: string;
+}
+
 interface LocationContextType {
   isTracking: boolean;
   currentPath: number[][];
-  startTracking: () => void;
+  startTracking: (name: string) => void;
   stopTracking: () => void;
   currentLocation: [number, number] | null;
+  trackName: string;
+  addPOI: (poi: POI) => void;
+  pois: POI[];
 }
 
 const LocationContext = createContext<LocationContextType | undefined>(undefined);
@@ -18,6 +26,8 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
   const [currentPath, setCurrentPath] = useState<number[][]>([]);
   const [currentLocation, setCurrentLocation] = useState<[number, number] | null>(null);
   const [watchId, setWatchId] = useState<number | null>(null);
+  const [trackName, setTrackName] = useState('');
+  const [pois, setPois] = useState<POI[]>([]);
 
   const handleLocationError = (error: GeolocationPositionError) => {
     toast.error('Unable to access location. Please enable location services.');
@@ -25,11 +35,15 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
     setIsTracking(false);
   };
 
-  const startTracking = useCallback(() => {
+  const startTracking = useCallback((name: string) => {
     if (!navigator.geolocation) {
       toast.error('Geolocation is not supported by your browser');
       return;
     }
+
+    setTrackName(name);
+    setPois([]);
+    setCurrentPath([]);
 
     const id = navigator.geolocation.watchPosition(
       (position) => {
@@ -67,6 +81,11 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
     toast.success('Stopped tracking');
   }, [watchId]);
 
+  const addPOI = useCallback((poi: POI) => {
+    setPois((prev) => [...prev, poi]);
+    toast.success('Added new point of interest');
+  }, []);
+
   useEffect(() => {
     return () => {
       if (watchId !== null) {
@@ -83,6 +102,9 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
         startTracking,
         stopTracking,
         currentLocation,
+        trackName,
+        addPOI,
+        pois,
       }}
     >
       {children}

@@ -1,12 +1,12 @@
 
-const createGPXString = (coordinates: number[][]): string => {
+const createGPXString = (coordinates: number[][], name: string): string => {
   const header = `<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" creator="Lovable Track Creator"
   xmlns="http://www.topografix.com/GPX/1/1"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
   <trk>
-    <name>Recorded Track</name>
+    <name>${name}</name>
     <trkseg>`;
 
   const points = coordinates
@@ -21,14 +21,14 @@ const createGPXString = (coordinates: number[][]): string => {
   return `${header}\n${points}${footer}`;
 };
 
-export const downloadGPXFile = (coordinates: number[][]) => {
-  const gpxContent = createGPXString(coordinates);
+export const downloadGPXFile = (coordinates: number[][], name: string) => {
+  const gpxContent = createGPXString(coordinates, name);
   const blob = new Blob([gpxContent], { type: 'application/gpx+xml' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   const date = new Date().toISOString().split('T')[0];
   link.href = url;
-  link.download = `track-${date}.gpx`;
+  link.download = `${name}-${date}.gpx`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
